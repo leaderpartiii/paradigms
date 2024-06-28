@@ -1,0 +1,43 @@
+package expression;
+
+import java.util.List;
+
+public class BinXor extends Operation {
+    // :NOTE: oh no, private
+    String operation = "^";
+
+    public BinXor(General leftSide, General rightSide) {
+        super(leftSide, rightSide);
+        this.leftSide = leftSide;
+        this.rightSide = rightSide;
+    }
+
+    @Override
+    public int evaluate(int x) {
+        return leftSide.evaluate(x) ^ rightSide.evaluate(x);
+    }
+
+    @Override
+    public int evaluate(int x, int y, int z) {
+        return leftSide.evaluate(x, y, z) ^ rightSide.evaluate(x, y, z);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + leftSide+ " " + operation +" "+ rightSide + ")";
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (o != null && o.getClass() == BinXor.class) {
+            return leftSide.equals(((Operation) o).getLeftSide()) && rightSide.equals(((Operation) o).getRightSide());
+        } else {
+            return false;
+        }
+    }
+    @Override
+    public int evaluate(List<Integer> variables) {
+        return leftSide.evaluate(variables) ^ rightSide.evaluate(variables);
+    }
+}
